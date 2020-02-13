@@ -100,8 +100,8 @@ function validateUser(req, res, next) {
 
 // validatePost
 function validatePost(req, res, next) {
-  const {id: user_id} = req.params;
-  const {text} = req.body;
+  const user_id = req.params.id;
+  const text = req.body.text;
   if(!req.body){
     res.status(400).json({message: "Post requires a body"})
   }
