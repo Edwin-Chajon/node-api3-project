@@ -32,10 +32,10 @@ router.get('/:id/posts', validateUserId, (req, res) => {
 
 // add new post
 router.post('/:id/posts', validatePost, (req, res) => {
-     const posting = req.body;
-     Posts.insert(posting)
-        .then(post => {res.status(200).json(post)})
-        .catch(err => {res.status(500).json({message: "cant post"})})
+  const posting = req.body;
+  Posts.insert(posting)
+     .then(post => {res.status(200).json(post)})
+     .catch(err => {res.status(500).json({message: "cant post"})})
 });
 
 // add new user
@@ -46,7 +46,7 @@ router.post("/", (req, res) => {
   Users.insert(userInfo)
       .then(user => {res.status(201).json(user)})
       .catch(error => {res.status(500).json({ errorMessage: 'cant create user'})})
-  : res.status(404).json({ errorMessage: 'provide name and bio.' })
+  : res.status(404).json({ errorMessage: 'provide name.' })
 
 });
 
@@ -108,6 +108,7 @@ function validatePost(req, res, next) {
   if(!text){
     res.status(400).json({message: "Post requires text"})
   }
+  req.body = {user_id, text};
   next();
 }
 
